@@ -17,7 +17,7 @@
                                 <h2>{{ $post->title }}</h2>
                                 <p>{{ $post->content }}</p>
                                 @if ($post->image_path)
-                                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image">
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="Post Image">
                                 @endif
                                 <form action="/posts/{{ $post->id }}" method="delete">
                                     @csrf
