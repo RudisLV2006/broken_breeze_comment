@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Comments', function (Blueprint $table) {
+        Schema::create('Comments', function (Blueprint $table) {
             $table->id();
             $table->string("content");
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
@@ -25,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('Comments', function (Blueprint $table) {
-            Schema::dropIfExists();
-        });
+        Schema::dropIfExists();
     }
 };
