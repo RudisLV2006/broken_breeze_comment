@@ -40,7 +40,7 @@ class PostController extends Controller
         $post->content = $request->content;
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
+            $post->image_path = $request->file('image')->store('images', 'public');
         }
 
         $post->save();
