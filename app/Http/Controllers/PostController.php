@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      */
@@ -44,7 +46,7 @@ class PostController extends Controller
             $post->image_path = $request->file('image')->store('images', 'public');
         }
 
-        $post->save();
+        $request->user()->posts()->save($post);
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
