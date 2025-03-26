@@ -27,11 +27,11 @@
                     @foreach ($post->comments as $comment)
                         <p>{{ $comment->user->name }}: {{ $comment->content }} 
                             @if (auth()->user()->id==$post->user_id)
-                                <form action="{{ route('comment.destroy',[$post, $comment]) }}" method="Post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button><span style="color:red">x</span></button>
-                                </form></p>
+                            <form action="{{ route('comment.destroy', $comment) }}" method="Post">
+                                @csrf
+                                @method('DELETE')
+                                <button><span style="color:red">x</span></button>
+                            </form></p>
                             @endif
                     @endforeach
 
