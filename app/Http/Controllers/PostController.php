@@ -73,7 +73,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $fields = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        if ($request->hasFile('image')) {
+            if ($post->image_path) {
+                Storage::disk('public')->delete($post->image_path);
+            }
+            $post->image_path = $request->file('image')->store('images', 'public');
+        }
+        $post->update($fields);
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
 
     /**
