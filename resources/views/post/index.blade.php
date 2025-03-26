@@ -21,6 +21,7 @@
                                 @endif
                                 <a href="/posts/{{ $post->id }}" type="button" class="button">Show</a>
                                 @if ($post->user_id == auth()->user()->id)
+                                <a href="/posts/{{ $post->id }}/edit" type="button" class="button">Edit</a>
                                     <form action="/posts/{{ $post->id }}" method="post">
                                         @csrf
                                         @method('delete')
