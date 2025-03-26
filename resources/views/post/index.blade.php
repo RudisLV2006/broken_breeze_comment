@@ -19,19 +19,12 @@
                                 @if ($post->image_path)
                                     <img src="{{ asset('storage/' . $post->image_path) }}" alt="Post Image">
                                 @endif
+                                <a href="/posts/{{ $post->id }}" type="button" class="button">Show</a>
                                 <form action="/posts/{{ $post->id }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                         Delete
-                                    </button>
-                                </form>
-
-                                <form action="{{ route('comment.store',$post) }}" method="post">
-                                    @csrf
-                                    <textarea name="content"></textarea>
-                                    <button type="submit" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">
-                                        Create
                                     </button>
                                 </form>
                                 @foreach ($post->comments as $comment)

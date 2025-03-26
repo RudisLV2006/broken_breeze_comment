@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
 
-
+    public static function middleware()
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show'])
+        ];
+    }
     /**
      * Display a listing of the resource.
      */
@@ -56,7 +63,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post->load('comments');
+        return view("post.show", ["post" => $post]);
     }
 
     /**
@@ -80,6 +88,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        Gate::authorize('modify', $post);
         $post->delete();
         if ($post->image_path) {
             Storage::disk('public')->delete($post->image_path);

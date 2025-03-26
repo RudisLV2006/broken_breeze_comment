@@ -20,6 +20,6 @@ class CommentController extends Controller
         $comment->post_id = $post->id;
         $comment->save();
 
-        return redirect()->route('posts.index')->with('success', 'Comment created.');
+        return redirect()->route('posts.show', $post->id)->with('success', 'Comment created.');
     }
 }
