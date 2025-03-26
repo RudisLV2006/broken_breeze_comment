@@ -15,16 +15,24 @@
                     @if ($post->image_path)
                         <img src="{{ asset('storage/' . $post->image_path) }}" alt="Post Image">
                     @endif
-                    <form action="{{ route('comment.store',$post) }}" method="post">
-                        @csrf
-                        <x-text-input name="content" style="width: 100%; resize: none;"></x-text-input>
-                        <button type="submit" class="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">
-                        Add
-                    </button>
-                    </form>
+
+                        <form action="{{ route('comment.store',$post) }}" method="post">
+                            @csrf
+                            <x-text-input name="content" style="width: 100%; resize: none;"></x-text-input>
+                            <button type="submit" class="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">
+                                Add
+                            </button>
+                        </form>
 
                     @foreach ($post->comments as $comment)
-                        <p>{{ $comment->user->name }}: {{ $comment->content }}</p>
+                        <p>{{ $comment->user->name }}: {{ $comment->content }} 
+                            @if (auth()->user()->id==$post->user_id)
+                                <form action="{{ route('comment.destroy',[$post, $comment]) }}" method="Post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><span style="color:red">x</span></button>
+                                </form></p>
+                            @endif
                     @endforeach
 
                     </div>
