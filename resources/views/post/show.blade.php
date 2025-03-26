@@ -18,7 +18,7 @@
 
                         <form action="{{ route('comment.store',$post) }}" method="post">
                             @csrf
-                            <x-text-input name="content" style="width: 100%; resize: none;"></x-text-input>
+                            <x-text-input name="content" style="width: 90%; resize: none;"></x-text-input>
                             <button type="submit" class="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">
                                 Add
                             </button>
@@ -26,13 +26,13 @@
 
                     @foreach ($post->comments as $comment)
                         <p>{{ $comment->user->name }}: {{ $comment->content }} 
-                            @if (auth()->user()->id==$post->user_id)
+                        @if (auth()->user()->id==$post->user_id)
                             <form action="{{ route('comment.destroy', $comment) }}" method="Post">
                                 @csrf
                                 @method('DELETE')
                                 <button><span style="color:red">x</span></button>
                             </form></p>
-                            @endif
+                        @endif
                     @endforeach
 
                     </div>
